@@ -1,0 +1,57 @@
+UC1-Ability to create addressBook DB
+show databases;
+sql--> create database addressBook;
+
+UC2-Ability to create a Address Book Table with first and last names, address, city, state, zip, phone number and email as its attributes.
+use addressBook;
+sql-->create table addressBook(first_name varchar(40) not null,
+      last_name varchar(40) not null,
+      address varchar(40),
+      city varchar(40),
+      state varchar(40),
+      zip int,
+      phone_number long,
+      emain varchar(40));
+
+ UC3- Ability to insert new Contacts to AddressBook
+ sql-->insert into addressBook(first_name,last_name,address,city,
+       state,zip,phone_number,emain)values
+       ("vamshi","reddy","uppal","hyderabad","telangana",500003,7730006563,"vamshi@gmail.com")
+       ,("sai","kumar","uppal","hyderabad","telangana",500003,8790736824,"sai@gmail.com"),
+       ("rahul","reddy","keesara","hyderabad","telangana",508126,8928667789,"rahul@gmail.com"),
+       ("rohith","kumar","vizag","vishakapatanam","andrapradesh",508521,7863427829,"rohith@gmail.com"),
+       ("bhargav","sheik","thuni","vishakapatanam","andrapradesh",508932,6655334289,"bhargav@gmail.com");
+       select* from addressBook;
+
+UC4- Ability to edit existing contact person using their name
+sql-->update addressBook set phone_number=8897323866 where first_name="rahul"
+
+UC5-Ability to delete a person using person's name
+sql-->delete from addressBook where first_name="rohith";
+
+UC6-Ability to Retrieve Person belonging to a City or State from the Address Book
+sql-->select state,city from addressBook where first_name="vamshi";
+
+UC7-Ability to understand the size of address book by City and State
+sql-->select count(city),count(state) from addressBook where city="hyderabad" and state="telangana"
+
+UC8-Ability to retrieve entries sorted alphabetically by Person’s name for a given city
+sql-->select first_name from addressBook where city="hyderabad" order by first_name asc;
+
+UC9-Ability to identify each Address Book with name and Type.
+sql-->alter table addressBook add address_book_name varchar(20) after last_name;
+      alter table addressBook add type varchar(20) after address_book_name;
+
+      update addressBook set address_book_name="Relation",type="Family" where first_name in("vamshi","sai");
+            update addressBook set address_book_name="frnd",type="friends" where first_name in("rahul");
+      update addressBook set address_book_name="work",type="workfriend" where first_name in("bhargav");
+
+UC10-Ability to get number of contact persons i.e. count by type
+sql-->select count(type) from addressbook where type="family";
+      select count(type) from addressbook where type="friends";
+      select count(type) from addressbook where type="workfriend";
+
+UC11-Ability to add person to both Friend and Family
+sql-->insert into addressBook(first_name,last_name,address_book_name,type,address,city,state,zip,phone_number,emain)
+      values("venu","reddy","Relation","Family","hyd","hyd","telangana",508234,7876543222,"venu@gmail.com"),
+      ("Vishal","yadav","frnd","friends","ghatkesar","hyd","telangana",508432,9987654356,"vishal@yahoo.in");

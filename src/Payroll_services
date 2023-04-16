@@ -1,0 +1,72 @@
+
+UC1-Ability to create a payroll
+    service database
+sql-->create database payroll_service;
+show databases;
+use payroll_service;
+
+UC2-Ability to create a employee payroll table in the payroll service database to manage employee payrolls;
+sql-->create table employee_payroll(
+id int not null auto_increment,
+name varchar(30) not null ,
+salary double not null,
+start date not null,
+primary key(id));
+
+UC3-Ability to create employee payroll data in the payroll service database
+insert into employee_payroll(name,salary,start)
+values("vamshi",6000000.0,'2022-06-12'),
+("sai",8000000.0,'2022-04-21'),
+("rani",7000000.0,'2022-09-19'),
+("harshita",6000000.0,'2023-07-21');
+
+UC4-Retrive data from database
+select * from employee_payroll;
+select * from employee_payroll
+
+UC5-Ability to retrieve salary data for a particular employee as well as all employees who have joined in a particular data range from the payroll service database
+where name = "harshita";
+select * from employee_payroll
+
+UC6-Ability to add Gender to Employee Payroll Table and Update the Rows to reflect the correct Employee Gender
+where start between cast('2022-06-12' as date)  and date(now());
+alter table employee_payroll add gender varchar(10) after name;
+update employee_payroll
+set gender = "Male"
+where id < 3;
+update employee_payroll
+set gender = "Female"
+where id > 2;
+update employee_payroll
+set gender = "Female"
+where id = 3;
+select * from employee_payroll;
+
+UC7-Ability to find sum, average, min, max and number of male and female employees
+select sum(salary) from employee_payroll
+where gender = "Male" group by gender;
+select avg(salary) from employee_payroll
+where gender = "Female" group by gender;
+select min(salary) from employee_payroll
+where gender = "Female" group by gender;
+select max(salary) from employee_payroll
+where gender = "Male" group by gender;
+select count(id) from employee_payroll
+where gender = "Male" group by gender;
+select count(id) from employee_payroll
+where gender = "Female" group by gender;
+
+
+UC8-Ability to extend employee_payroll data to store employee information like employee phone, address and department - Ensure employee department
+alter table employee_payroll add phonenumber long after start;
+alter table employee_payroll add address varchar(100) after phonenumber;
+alter table employee_payroll add department varchar(50) after salary;
+update employee_payroll set department = 'java', phonenumber = 77845362517 , address = "chennai"
+where id = 1;
+update employee_payroll set department = 'Deskservice', phonenumber = 77534192837 , address = "hyderabad"
+where id = 2;
+update employee_payroll set department = 'developer', phonenumber = 7625273827 , address = "pune"
+where id = 3;
+update employee_payroll set department = 'Tester', phonenumber = 88765432678 , address = "hyderabad"
+where id = 4;
+select * from employee_payroll;
